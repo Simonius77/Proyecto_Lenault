@@ -1,0 +1,11 @@
+.header {
+  background-image: url("Imagenes\banner.png");
+  background-size: cover;      /* La imagen cubre todo el header */
+  background-position: center; /* Centrada */
+  height: 300px;               /* Ajusta la altura */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ /* color: white; */               /* Texto visible sobre el fondo */
+}
+

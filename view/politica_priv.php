@@ -9,7 +9,7 @@
     >
     <title>Politicas de privacidad</title>
 </head>
-<?php include __DIR__. '/layout/navbar.php'; ?>
+<?php include_once __DIR__. '/partials/navbar.php'; ?>
 <body>
     <h1>Politicas de privacidad Lenault</h1>    
     <h3>Última actualización: 20/11/2025</h3>
@@ -54,5 +54,5 @@
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
     </script>
 </body>
-<?php include_once __DIR__. '/layout/footer.php'; ?>
+<?php include_once __DIR__. '/partials/footer.php'; ?>
 </html>

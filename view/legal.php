@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link 
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
-    rel="stylesheet"
-    >
-    <title>Informacion legal</title>
-</head>
-<body>
-    <main>
+
         <section>
             <h1>Aviso Legal</h1>
             <p>
@@ -47,11 +35,4 @@
                 Este sitio se rige por la legislación española. Para cualquier controversia que pudiera derivarse del acceso o uso del sitio web, las partes se someten a los Juzgados y Tribunales de [Ciudad], renunciando expresamente a cualquier otro fuero que pudiera corresponderles.
             </p>
         </section>
-    </main>
-    <script 
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
-    </script>
-</body>
-<!--footer-->
-<?php include_once __DIR__. '/layout/footer.php'; ?>
-</html>
+    
