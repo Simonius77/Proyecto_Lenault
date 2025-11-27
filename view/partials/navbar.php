@@ -10,7 +10,7 @@
         </button>
         <!--menu lado izquierdo-->
         <div>
-            <ul>
+            <ul class="nav-izquierdo">
                 <li class="nav-item">
                     <a class="nav-link" href="home.php">Home</a>
                 </li>
@@ -24,7 +24,7 @@
         </div>
         <!--menu lado derecho-->
         <div>
-            <ul>   
+            <ul class="nav-derecho">   
                 <li class="nav-item">
                     <a class="nav-link" href="login.php">My Lenault</a>
                 </li>

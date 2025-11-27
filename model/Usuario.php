@@ -1,5 +1,5 @@
 <?php
-
+        require_once __DIR__ ."\..\\database.php";
 
     class Ususario {
         private $id_usuario;
@@ -11,8 +11,10 @@
         private $rol;
 
 
-
-
+        //constructor vacio
+        public function __construct() {
+                
+        }
 
 
 
