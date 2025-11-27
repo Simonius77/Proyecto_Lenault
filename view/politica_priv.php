@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link 
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
-    rel="stylesheet"
-    >
-    <title>Politicas de privacidad</title>
-</head>
-<?php include_once __DIR__. '/partials/navbar.php'; ?>
-<body>
+<!-- pagina de las politicas de privacidad -->
+<section>
     <h1>Politicas de privacidad Lenault</h1>    
     <h3>Última actualización: 20/11/2025</h3>
     <p>En Lenault, valoramos la privacidad de nuestros visitantes y nos comprometemos a proteger la información personal que pueda ser recopilada a través de este sitio web. Al acceder y utilizar nuestra página, aceptas los términos descritos a continuación.</p>
@@ -50,9 +39,5 @@
     <p>
         Nos reservamos el derecho de modificar estas políticas en cualquier momento. Las actualizaciones se publicarán en esta misma página.
     </p>
-    <script 
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
-    </script>
-</body>
-<?php include_once __DIR__. '/partials/footer.php'; ?>
-</html>
+   
+</section>
