@@ -18,7 +18,7 @@
                     <a class="nav-link" href="carta.php">Carta</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="carta.php">Quienes somos</a>
+                    <a class="nav-link" href="http://localhost/Proyecto_Lenault/?controller=Home&action=aboutus">Quienes somos</a>
                 </li>
             </ul>
         </div>
@@ -26,7 +26,7 @@
         <div>
             <ul class="nav-derecho">   
                 <li class="nav-item">
-                    <a class="nav-link" href="login.php">My Lenault</a>
+                    <a class="nav-link" href="http://localhost/Proyecto_Lenault/?controller=Home&action=login">My Lenault</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="carrito.php">Carrito</a>

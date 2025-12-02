@@ -1,4 +1,4 @@
-
+<!--pagina del aviso legal-->
         <section>
             <h1>Aviso Legal</h1>
             <p>

@@ -13,6 +13,7 @@
 <body>
     <main>
         <section>
+            
            <?php include_once $view; ?>
         </section>
     </main>
