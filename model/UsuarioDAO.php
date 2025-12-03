@@ -50,7 +50,7 @@ class UsuarioDAO {  // Cambiado de ProductoDAO a UsuarioDAO
             
             // Verificar password
             if (password_verify($password, $row['PASSWORD'])) {
-                $usuario = new Ususario();
+                $usuario = new Usuario();
                 $usuario->setId_usuario($row['ID_USUARIO']);
                 $usuario->setNombre($row['NOMBRE_USUARIO']);
                 $usuario->setEmail($row['EMAIL']);

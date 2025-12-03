@@ -3,6 +3,7 @@
 
 include_once 'controller/ProductoController.php';
 include_once 'controller/HomeController.php';
+include_once 'controller/UsuarioController.php';
 
 
 if (isset($_GET['controller'])) {
