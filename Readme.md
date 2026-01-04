@@ -17,4 +17,13 @@ CONTROLADOR
 HomeController.php controlador de las paginas estaticas de la home
 UsuarioController.php controlador de las paginas de login y registro
 
+GIT
+
+Ramas
+main: rama principal del proyecto
+desarrollo: rama de desarrollo
+deploy: rama de despliegue en el servidor
+
+IMPORTANTE: LA RAMA ACTIVA ES LA QUE SE SUBE AL SERVIDOR RECORDAR ESTAR EN LA RAMA DEPLOY PARA LAS SUBIDA AL SERVIDOR.
+
 

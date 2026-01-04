@@ -1,45 +1,51 @@
 <?php
 
-class HomeController {
+class HomeController
+{
     /*creamos una funcion para poder llamar a la vista que nos interese */
-    public function Home(){
+    public function Home()
+    {
         /*Creamos la variable $view a la que le asignamos el valor de la vista deseada */
-        $view = "home.php";
-        /*hacemos la llamada a la vista que desemos cargar teniendo muy encuenta la estructura de carpetas */
-        require_once __DIR__ . "\..\\view\plantilla.php";
-
-    }
-    
-    public function Legal(){
-        /*Creamos la variable $view a la que le asignamos el valor de la vista deseada */
-        $view = "legal.php";
+        $view = "homeViews/home.php";
         /*hacemos la llamada a la vista que desemos cargar teniendo muy encuenta la estructura de carpetas */
         require_once __DIR__ . "\..\\view\plantilla.php";
 
     }
 
-    public function Politicas(){
-
-        $view = "politica_priv.php";
+    public function Legal()
+    {
+        /*Creamos la variable $view a la que le asignamos el valor de la vista deseada */
+        $view = "homeViews/legal.php";
+        /*hacemos la llamada a la vista que desemos cargar teniendo muy encuenta la estructura de carpetas */
         require_once __DIR__ . "\..\\view\plantilla.php";
 
     }
 
-    public function AboutUs(){
+    public function Politicas()
+    {
 
-        $view = "quienes_somos.php";
+        $view = "homeViews/politica_priv.php";
         require_once __DIR__ . "\..\\view\plantilla.php";
 
     }
 
-    public function Login(){
+    public function AboutUs()
+    {
 
-        $view = "login.php";
+        $view = "homeViews/quienes_somos.php";
         require_once __DIR__ . "\..\\view\plantilla.php";
 
     }
 
-    
+    public function Login()
+    {
+
+        $view = "admindViews/login.php";
+        require_once __DIR__ . "\..\\view\plantilla.php";
+
+    }
+
+
 }
 
 ?>

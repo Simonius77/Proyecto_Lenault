@@ -165,9 +165,9 @@ function deleteProduct(id) {
         })
         .catch(error => console.error('Error:', error));
 }
-// ---------------------------------------------------------
-// 6. LÓGICA DEL MODAL (Crear y Editar)
-// ---------------------------------------------------------
+
+// 6. LOGICA DEL MODAL (Crear y Editar)
+
 
 // A. ABRIR MODAL PARA NUEVO PRODUCTO
 function openCreateModal() {
@@ -186,7 +186,7 @@ function openCreateModal() {
     modal.show();
 }
 
-// B. ABRIR MODAL PARA EDICIÓN
+// B. ABRIR MODAL PARA EDICION
 function openEditModal(id) {
     // 1. Buscar el producto en nuestro array JS (¡No es necesario volver a consultar la base de datos!)
     const product = arrayProducts.find(p => p.id == id);
@@ -205,7 +205,7 @@ function openEditModal(id) {
     modal.show();
 }
 
-// C. FUNCIÓN DE GUARDADO
+// C. FUNCION DE GUARDADO
 function saveProduct() {
     // 1. Recopilar datos del formulario
     const id = document.getElementById('prodId').value;
