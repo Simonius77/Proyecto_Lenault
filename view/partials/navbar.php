@@ -1,7 +1,7 @@
 <!--barra de navegacion principal-->
 <nav class="navbar">
     <div class="container">
-        <a class="navbar-logo" href="home.php">
+        <a class="navbar-logo" href="?controller=Home&action=Home">
 
         </a>
         <!--boton para colapsar el nav en el movil -->
@@ -13,7 +13,7 @@
         <div>
             <ul class="nav-izquierdo">
                 <li class="nav-item">
-                    <a class="nav-link" href="home.php">Home</a>
+                    <a class="nav-link" href="?controller=Home&action=Home">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
