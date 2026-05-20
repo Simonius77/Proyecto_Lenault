@@ -1,5 +1,4 @@
 <?php
-        require_once __DIR__ ."\..\\database.php";
 
     class Usuario {
         private $id_usuario;

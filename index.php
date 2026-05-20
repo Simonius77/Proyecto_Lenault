@@ -1,10 +1,25 @@
 <?php
-//http://localhost/Proyecto_Lenault/?controller=Home&action=legal
+// Iniciar sesión para carrito y gestión de usuarios
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-include_once 'controller/ProductoController.php';
-include_once 'controller/HomeController.php';
-include_once 'controller/AdmindController.php';
-include_once 'controller/API/ApiController.php';
+// Autocargador dinámico de clases (Modelo-Vista-Controlador)
+spl_autoload_register(function ($class_name) {
+    $dirs = [
+        'controller/',
+        'controller/API/',
+        'model/',
+        'database/'
+    ];
+    foreach ($dirs as $dir) {
+        $file = $dir . $class_name . '.php';
+        if (file_exists($file)) {
+            include_once $file;
+            return;
+        }
+    }
+});
 
 
 if (isset($_GET['controller'])) {

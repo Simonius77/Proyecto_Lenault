@@ -3,7 +3,7 @@ services:
   image: mysql:latest
   container_name: mysql-db 
   environment: 
-  MYSQL_ROOT_PASSWORD: admin123
+  MYSQL_ROOT_PASSWORD: root
   MYSQL_DATABASE: lenault 
   ports: 
   - "3307:3306" 
