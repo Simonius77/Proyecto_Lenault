@@ -20,7 +20,7 @@
 
 
         /**
-         * Get the value of id_usuario
+         * Obtener el valor de id_usuario
          */ 
         public function getId_usuario()
         {
@@ -28,7 +28,7 @@
         }
 
         /**
-         * Set the value of id_usuario
+         * Establecer el valor de id_usuario
          *
          * @return  self
          */ 
@@ -40,7 +40,7 @@
         }
 
         /**
-         * Get the value of nombre
+         * Obtener el valor de nombre
          */ 
         public function getNombre()
         {
@@ -48,7 +48,7 @@
         }
 
         /**
-         * Set the value of nombre
+         * Establecer el valor de nombre
          *
          * @return  self
          */ 
@@ -60,7 +60,7 @@
         }
 
         /**
-         * Get the value of email
+         * Obtener el valor de email
          */ 
         public function getEmail()
         {
@@ -68,7 +68,7 @@
         }
 
         /**
-         * Set the value of email
+         * Establecer el valor de email
          *
          * @return  self
          */ 
@@ -80,7 +80,7 @@
         }
 
         /**
-         * Get the value of direccion
+         * Obtener el valor de direccion
          */ 
         public function getDireccion()
         {
@@ -88,7 +88,7 @@
         }
 
         /**
-         * Set the value of direccion
+         * Establecer el valor de direccion
          *
          * @return  self
          */ 
@@ -100,7 +100,7 @@
         }
 
         /**
-         * Get the value of password
+         * Obtener el valor de password
          */ 
         public function getPassword()
         {
@@ -108,7 +108,7 @@
         }
 
         /**
-         * Set the value of password
+         * Establecer el valor de password
          *
          * @return  self
          */ 
@@ -120,7 +120,7 @@
         }
 
         /**
-         * Get the value of telf
+         * Obtener el valor de telf
          */ 
         public function getTelf()
         {
@@ -128,7 +128,7 @@
         }
 
         /**
-         * Set the value of telf
+         * Establecer el valor de telf
          *
          * @return  self
          */ 
@@ -140,7 +140,7 @@
         }
 
         /**
-         * Get the value of rol
+         * Obtener el valor de rol
          */ 
         public function getRol()
         {
@@ -148,7 +148,7 @@
         }
 
         /**
-         * Set the value of rol
+         * Establecer el valor de rol
          *
          * @return  self
          */ 

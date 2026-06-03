@@ -1,10 +1,10 @@
 <?php
-// Iniciar sesión para carrito y gestión de usuarios
+// Iniciar sesion para carrito y gestion de usuarios
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Autocargador dinámico de clases (Modelo-Vista-Controlador)
+// Autocargador dinamico de clases (Modelo-Vista-Controlador)
 spl_autoload_register(function ($class_name) {
     $dirs = [
         'controller/',

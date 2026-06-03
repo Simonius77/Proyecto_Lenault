@@ -5,7 +5,7 @@ include_once 'model/LogDAO.php';
 
 class ProductoController
 {
-    // Mostrar la Carta / Catálogo de Productos
+    // Mostrar la Carta / Catalogo de Productos
     public function Producto()
     {
         $listaproductos = ProductoDAO::getProductos();
@@ -20,7 +20,7 @@ class ProductoController
         require_once __DIR__ . "/../view/plantilla.php";
     }
 
-    // Añadir producto al Carrito (Sesiones PHP, sin JS)
+    // Agregar producto al Carrito (Sesiones PHP, sin JS)
     public function addCart()
     {
         $id_producto = isset($_GET['id_producto']) ? (int)$_GET['id_producto'] : 0;
@@ -72,7 +72,7 @@ class ProductoController
     // Confirmar el pedido y guardarlo en la Base de Datos
     public function confirmOrder()
     {
-        // 1. Verificar si el usuario ha iniciado sesión
+        // 1. Verificar si el usuario ha iniciado sesion
         if (!isset($_SESSION['user_id'])) {
             $_SESSION['error'] = "Debes iniciar sesión en tu cuenta de Lenault para finalizar el pedido.";
             header("Location: ?controller=Usuario&action=Login");

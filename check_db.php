@@ -6,20 +6,20 @@ if ($c->connect_error) {
 } else {
     echo "Connected successfully to MySQL!\n";
     
-    // Check if database lenault exists
+    // Comprobar si la base de datos lenault existe
     $db_selected = $c->select_db('lenault');
     if (!$db_selected) {
         echo "Database 'lenault' does not exist.\n";
     } else {
         echo "Database 'lenault' exists!\n";
         
-        // List tables
+        // Listar tablas
         $result = $c->query("SHOW TABLES");
         echo "Tables in 'lenault':\n";
         while ($row = $result->fetch_row()) {
             echo "- " . $row[0] . "\n";
             
-            // Show structure
+            // Mostrar estructura
             $tbl = $row[0];
             $desc = $c->query("DESCRIBE `$tbl`");
             while ($col = $desc->fetch_assoc()) {

@@ -59,10 +59,10 @@
                                         <td class="py-3"><?= number_format($producto->getPrecio(), 2); ?> €</td>
                                         <td class="py-3">
                                             <div class="d-flex justify-content-center align-items-center">
-                                                <!-- Botón Disminuir -->
+                                                <!-- Boton Disminuir -->
                                                 <a href="?controller=Producto&action=removeCart&id_producto=<?= $id_prod; ?>&type=decrease" class="btn btn-sm btn-outline-secondary rounded-circle px-2 py-0 fw-bold me-2">-</a>
                                                 <span class="fw-bold text-dark px-2"><?= $cantidad; ?></span>
-                                                <!-- Botón Aumentar -->
+                                                <!-- Boton Aumentar -->
                                                 <a href="?controller=Producto&action=addCart&id_producto=<?= $id_prod; ?>" class="btn btn-sm btn-outline-secondary rounded-circle px-2 py-0 fw-bold ms-2">+</a>
                                                 
                                                 <!-- Eliminar Fila -->
@@ -78,7 +78,7 @@
                 </div>
             </div>
 
-            <!-- Resumen y Confirmación -->
+            <!-- Resumen y Confirmacion -->
             <div class="col-lg-4">
                 <div class="card shadow-sm border-0 rounded-4 bg-white p-4">
                     <h5 class="fw-bold text-dark mb-4 border-bottom pb-2">Resumen de Compra</h5>

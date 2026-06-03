@@ -96,7 +96,7 @@ class ApiController
         echo json_encode($pedidos);
     }
 
-    // Guardar / Actualizar pedido (Para administración)
+    // Guardar / Actualizar pedido (Para administracion)
     public function save_order()
     {
         header('Content-Type: application/json');

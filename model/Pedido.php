@@ -12,7 +12,7 @@ class Pedido implements JsonSerializable
     // Campo adicional para guardar el nombre del usuario en consultas JOIN
     private $nombre_usuario;
 
-    // Líneas de pedido asociadas
+    // Lineas de pedido asociadas
     private $lineas = [];
 
     public function __construct()
@@ -33,7 +33,7 @@ class Pedido implements JsonSerializable
         ];
     }
 
-    // Getters and Setters
+    // Getters y Setters
     public function getId_pedido() { return $this->id_pedido; }
     public function setId_pedido($id) { $this->id_pedido = $id; return $this; }
 

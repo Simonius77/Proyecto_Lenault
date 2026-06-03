@@ -4,7 +4,7 @@ include_once 'database/database.php';
 
 class PedidoDAO
 {
-    // Obtener todos los pedidos con su usuario y sus líneas de pedido
+    // Obtener todos los pedidos con su usuario y sus lineas de pedido
     public static function getPedidos()
     {
         $con = DataBase::connect();
@@ -25,7 +25,7 @@ class PedidoDAO
             $pedido->setFecha($row['fecha']);
             $pedido->setNombreUsuario($row['nombre_usuario']);
             
-            // Cargar líneas de pedido
+            // Cargar lineas de pedido
             $pedido->setLineas(self::getLineasPedido($row['id_pedido'], $con));
             
             $listaPedidos[] = $pedido;
@@ -35,7 +35,7 @@ class PedidoDAO
         return $listaPedidos;
     }
 
-    // Obtener las líneas de un pedido con el nombre de los productos
+    // Obtener las lineas de un pedido con el nombre de los productos
     private static function getLineasPedido($id_pedido, $con)
     {
         $stmt = $con->prepare("SELECT lp.*, prod.nombre AS nombre_producto FROM linea_pedido lp LEFT JOIN producto prod ON lp.id_producto = prod.id_producto WHERE lp.id_pedido = ?");
@@ -56,7 +56,7 @@ class PedidoDAO
         return $lineas;
     }
 
-    // Obtener el último pedido de un usuario específico
+    // Obtener el ultimo pedido de un usuario especifico
     public static function getUltimoPedidoByUser($id_usuario)
     {
         $con = DataBase::connect();
@@ -76,7 +76,7 @@ class PedidoDAO
             $pedido->setFecha($row['fecha']);
             $pedido->setNombreUsuario($row['nombre_usuario']);
             
-            // Cargar líneas
+            // Cargar lineas
             $pedido->setLineas(self::getLineasPedido($row['id_pedido'], $con));
             
             $stmt->close();
@@ -89,12 +89,12 @@ class PedidoDAO
         return null;
     }
 
-    // Insertar un pedido completo con sus líneas a partir de una lista de productos
+    // Insertar un pedido completo con sus lineas a partir de una lista de productos
     public static function insert($id_usuario, $local, $recoger, $importe_total, $productos_carrito)
     {
         $con = DataBase::connect();
         
-        // Empezar transacción para asegurar consistencia
+        // Empezar transaccion para asegurar consistencia
         $con->begin_transaction();
         
         try {
@@ -104,10 +104,10 @@ class PedidoDAO
             $id_pedido = $con->insert_id;
             $stmt->close();
             
-            // Insertar líneas de pedido
+            // Insertar lineas de pedido
             $stmt_linea = $con->prepare("INSERT INTO linea_pedido (id_pedido, id_producto, precio) VALUES (?, ?, ?)");
             foreach ($productos_carrito as $item) {
-                // $item['producto'] es un objeto Producto, y se repite según la cantidad
+                // $item['producto'] es un objeto Producto, y se repite segun la cantidad
                 $id_prod = $item['producto']->getId_producto();
                 $precio = $item['producto']->getPrecio();
                 $cantidad = $item['cantidad'];
@@ -141,14 +141,14 @@ class PedidoDAO
         return $status;
     }
 
-    // Eliminar un pedido y sus líneas asociadas
+    // Eliminar un pedido y sus lineas asociadas
     public static function delete($id_pedido)
     {
         $con = DataBase::connect();
         $con->begin_transaction();
         
         try {
-            // Eliminar líneas de pedido primero
+            // Eliminar lineas de pedido primero
             $stmt1 = $con->prepare("DELETE FROM linea_pedido WHERE id_pedido = ?");
             $stmt1->bind_param('i', $id_pedido);
             $stmt1->execute();

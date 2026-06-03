@@ -9,5 +9,5 @@ RUN a2enmod rewrite
 # Copiar el contenido del proyecto al contenedor
 COPY . /var/www/html/
 
-# Dar permisos al directorio de imágenes (si es necesario escritura)
+# Dar permisos al directorio de imagenes (si es necesario escritura)
 RUN chown -R www-data:www-data /var/www/html/Imagenes

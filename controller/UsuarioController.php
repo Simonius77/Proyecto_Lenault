@@ -34,7 +34,7 @@ class UsuarioController
             $user = UsuarioDAO::login($username, $password);
 
             if ($user) {
-                // Iniciar la sesión del usuario
+                // Iniciar la sesion del usuario
                 $_SESSION['user_id'] = $user->getId_usuario();
                 $_SESSION['user_name'] = $user->getNombre();
                 $_SESSION['user_role'] = $user->getRol();
@@ -42,7 +42,7 @@ class UsuarioController
                 // Registrar en el historial de logs
                 LogDAO::insertLog($user->getNombre(), "Usuario inició sesión correctamente.");
 
-                // Redireccionar según el rol
+                // Redireccionar segun el rol
                 if (strtolower($user->getRol()) === 'admin') {
                     header("Location: ?controller=Admind&action=Admind");
                 } else {
@@ -102,14 +102,14 @@ class UsuarioController
         }
     }
 
-    // Cerrar sesión
+    // Cerrar sesion
     public function Logout()
     {
         if (isset($_SESSION['user_name'])) {
             LogDAO::insertLog($_SESSION['user_name'], "Usuario cerró sesión.");
         }
         
-        // Destruir variables de sesión y sesión completa
+        // Destruir variables de sesion y sesion completa
         $_SESSION = [];
         if (ini_get("session.use_cookies")) {
             $params = session_get_cookie_params();

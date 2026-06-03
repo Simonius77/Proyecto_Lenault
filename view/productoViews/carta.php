@@ -32,7 +32,7 @@
                             <?= htmlspecialchars($producto->getDescripcion()); ?>
                         </p>
                         
-                        <!-- Botón Añadir -->
+                        <!-- Boton Agregar -->
                         <div class="d-grid mt-auto">
                             <a href="?controller=Producto&action=addCart&id_producto=<?= $producto->getId_producto(); ?>" class="btn btn-warning btn-lg fw-bold text-dark py-2.5 rounded-3 d-flex align-items-center justify-content-center shadow-sm" style="background: #ffc107; border: none; transition: background 0.2s;">
                                 <i class="fas fa-plus-circle me-2"></i> Agregar al Pedido

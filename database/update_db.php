@@ -9,7 +9,7 @@ if ($con->connect_error) {
 
 echo "Connected successfully to MySQL.\n";
 
-// 1. Añadir columna 'fecha' a la tabla 'pedido' si no existe
+// 1. Agregar columna 'fecha' a la tabla 'pedido' si no existe
 $result = $con->query("SHOW COLUMNS FROM `pedido` LIKE 'fecha'");
 if ($result->num_rows == 0) {
     echo "Adding 'fecha' column to 'pedido' table...\n";

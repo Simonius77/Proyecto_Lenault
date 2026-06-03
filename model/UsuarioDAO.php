@@ -85,7 +85,7 @@ class UsuarioDAO {
         return false;
     }
 
-    // Actualizar contraseña
+    // Actualizar contrasena
     public static function updatePassword($user_id, $new_password) {
         $con = DataBase::connect();
         $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);

@@ -11,7 +11,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <!-- Menú lado izquierdo -->
+            <!-- Menu lado izquierdo -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link active" href="?controller=Home&action=Home">Home</a>
@@ -24,7 +24,7 @@
                 </li>
             </ul>
 
-            <!-- Menú lado derecho -->
+            <!-- Menu lado derecho -->
             <ul class="navbar-nav ms-auto align-items-center">
                 <!-- Carrito -->
                 <li class="nav-item me-3">

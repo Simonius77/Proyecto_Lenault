@@ -1,13 +1,13 @@
 <!-- Contenido panel de administrador con bootstrap -->
 <main class="col-12 col-md-9 col-lg-10 p-4">
     <div class="tab-content" id="admin-tabContent">
-        <!-- SECCIÓN USUARIOS -->
+        <!-- SECCION USUARIOS -->
         <div class="tab-pane fade show active" id="usuarios" role="tabpanel" aria-labelledby="usuarios-tab">
             <h2>Gestión de Usuarios</h2>
             <p>Funcionalidad de usuarios próximamente.</p>
         </div>
 
-        <!-- SECCIÓN PRODUCTOS -->
+        <!-- SECCION PRODUCTOS -->
         <div class="tab-pane fade" id="productos" role="tabpanel" aria-labelledby="productos-tab">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2>Productos</h2>
@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <!-- SECCIÓN PEDIDOS -->
+        <!-- SECCION PEDIDOS -->
         <div class="tab-pane fade" id="pedidos" role="tabpanel" aria-labelledby="pedidos-tab">
             <h2>Gestión de Pedidos</h2>
             <p>Funcionalidad de pedidos próximamente.</p>
@@ -59,7 +59,7 @@
             </div>
             <div class="modal-body">
                 <form id="productForm">
-                    <!-- ID Hidden -->
+                    <!-- ID oculto -->
                     <input type="hidden" id="prodId">
 
                     <div class="mb-3">
@@ -75,7 +75,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="prodCategory" class="form-label">Categoría (ID)</label>
-                            <!-- Idealmente esto sería un <select> cargado dinámicamente -->
+                            <!-- Idealmente esto seria un <select> cargado dinamicamente -->
                             <input type="number" class="form-control" id="prodCategory" placeholder="Ej: 1" required>
                         </div>
                         <div class="col-md-6 mb-3">

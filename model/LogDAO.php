@@ -3,7 +3,7 @@ include_once 'database/database.php';
 
 class LogDAO
 {
-    // Insertar una nueva acción en el historial de logs
+    // Insertar una nueva accion en el historial de logs
     public static function insertLog($usuario, $accion)
     {
         $con = DataBase::connect();

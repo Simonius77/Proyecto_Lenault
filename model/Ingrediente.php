@@ -10,7 +10,7 @@ private $nombre;
 
 
 /**
- * Get the value of id_ingrediente
+ * Obtener el valor de id_ingrediente
  */ 
 public function getId_ingrediente()
 {
@@ -18,7 +18,7 @@ return $this->id_ingrediente;
 }
 
 /**
- * Set the value of id_ingrediente
+ * Establecer el valor de id_ingrediente
  *
  * @return  self
  */ 
@@ -30,7 +30,7 @@ return $this;
 }
 
 /**
- * Get the value of nombre
+ * Obtener el valor de nombre
  */ 
 public function getNombre()
 {
@@ -38,7 +38,7 @@ return $this->nombre;
 }
 
 /**
- * Set the value of nombre
+ * Establecer el valor de nombre
  *
  * @return  self
  */ 

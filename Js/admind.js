@@ -1,5 +1,5 @@
 
-// Página de Administración en JavaScript para consultas y administración de productos, pedidos y usuarios
+// Pagina de Administracion en JavaScript para consultas y administracion de productos, pedidos y usuarios
 
 
 // Obtener los botones
@@ -44,13 +44,13 @@ class Product {
         this.available = available;
     }
 
-    // Métodos de la clase Producto
+    // Metodos de la clase Producto
     getHtmlRow() {
         const statusBadge = this.available == 1
             ? '<span class="badge bg-success">Active</span>'
             : '<span class="badge bg-danger">Hidden</span>';
 
-        // ACTUALIZADO: añadir el botón de eliminar con la función onclick
+        // ACTUALIZADO: agregar el boton de eliminar con la funcion onclick
         return `
             <tr id="row-${this.id}">
                 <td>${this.id}</td>
@@ -68,7 +68,7 @@ class Product {
 }
 
 
-// FETCH y gestión de datos 
+// FETCH y gestion de datos 
 
 
 const arrayProducts = []; // Array para almacenar los productos
@@ -90,7 +90,7 @@ fetch('index.php?controller=Api&action=products')
                 item.available
             );
 
-            // Añade a nuestra Array
+            // Agrega a nuestro Array
             arrayProducts.push(nuevoProducto);
         });
 
@@ -100,13 +100,13 @@ fetch('index.php?controller=Api&action=products')
     .catch(error => console.error("Error loading products:", error));
 
 
-// Función para dibujar la matriz en el HTML
+// Funcion para dibujar la matriz en el HTML
 function renderTable(productsList) {
     const tableBody = document.getElementById('productsTableBody');
     tableBody.innerHTML = ""; // Borrar contenido existente
 
     productsList.forEach(product => {
-        // Usar el método de la clase para obtener el HTML
+        // Usar el metodo de la clase para obtener el HTML
         tableBody.innerHTML += product.getHtmlRow();
     });
 }
@@ -117,11 +117,11 @@ function renderTable(productsList) {
 
 const searchInput = document.getElementById('searchInput');
 
-// Evento: Cuando el usuario escribe en la caja de búsqueda
+// Evento: Cuando el usuario escribe en la caja de busqueda
 searchInput.addEventListener('input', (e) => {
     const text = e.target.value.toLowerCase();
 
-    // Usar .filter() (Función de orden superior)
+    // Usar .filter() (Funcion de orden superior)
     const filteredProducts = arrayProducts.filter(product => {
         return product.name.toLowerCase().includes(text);
     });
@@ -135,10 +135,10 @@ searchInput.addEventListener('input', (e) => {
 
 
 function deleteProduct(id) {
-    // Confirmación del usuario
+    // Confirmacion del usuario
     if (!confirm("Are you sure you want to delete this product?")) return;
 
-    // Enviar petición a la API
+    // Enviar peticion a la API
     fetch('index.php?controller=Api&action=delete_product', {
         method: 'POST',
         headers: {
@@ -149,13 +149,13 @@ function deleteProduct(id) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // Manipulación del DOM: eliminar filas sin recargar
+                // Manipulacion del DOM: eliminar filas sin recargar
                 const row = document.getElementById(`row-${id}`);
                 if (row) {
                     row.remove();
                 }
 
-                // Opcional: Eliminar de nuestro array local también
+                // Opcional: Eliminar de nuestro array local tambien
                 const index = arrayProducts.findIndex(p => p.id === id);
                 if (index > -1) arrayProducts.splice(index, 1);
 
@@ -171,11 +171,11 @@ function deleteProduct(id) {
 
 // A. ABRIR MODAL PARA NUEVO PRODUCTO
 function openCreateModal() {
-    // 1. Cambiar Título
+    // 1. Cambiar Titulo
     document.getElementById('modalTitle').innerText = "New Product";
 
     // 2. Limpiar Campos
-    document.getElementById('prodId').value = ""; // ID vacío significa "Crear"
+    document.getElementById('prodId').value = ""; // ID vacio significa "Crear"
     document.getElementById('prodName').value = "";
     document.getElementById('prodDesc').value = "";
     document.getElementById('prodPrice').value = "";
@@ -188,7 +188,7 @@ function openCreateModal() {
 
 // B. ABRIR MODAL PARA EDICION
 function openEditModal(id) {
-    // 1. Buscar el producto en nuestro array JS (¡No es necesario volver a consultar la base de datos!)
+    // 1. Buscar el producto en nuestro array JS (No es necesario volver a consultar la base de datos)
     const product = arrayProducts.find(p => p.id == id);
     if (!product) return;
 
@@ -215,7 +215,7 @@ function saveProduct() {
     const price = document.getElementById('prodPrice').value;
     const image = document.getElementById('prodImage').value;
 
-    // Validación
+    // Validacion
     if (!name || !price) {
         alert("Please fill in all required fields.");
         return;
@@ -223,7 +223,7 @@ function saveProduct() {
 
     // 2. Preparar datos (Payload)
     const payload = {
-        id: id, // Si es una cadena vacía, PHP lo trata como null/nuevo
+        id: id, // Si es una cadena vacia, PHP lo trata como null/nuevo
         name: name,
         description: description,
         category: category,
@@ -246,12 +246,12 @@ function saveProduct() {
                 modal.hide();
 
                 // 5.Actualizar datos
-                // Opción A: Recargar todo (la más fácil)
+                // Opcion A: Recargar todo (la mas facil)
                 // location.reload(); 
 
-                // Opción B: Actualización inteligente (más rápida)
+                // Opcion B: Actualizacion inteligente (mas rapida)
                 if (id) {
-                    // ACTUALIZACIÓN: Buscar un objeto en el array y actualizarlo
+                    // ACTUALIZACION: Buscar un objeto en el array y actualizarlo
                     const product = arrayProducts.find(p => p.id == id);
                     product.name = name;
                     product.description = description;
@@ -260,7 +260,7 @@ function saveProduct() {
                     // Volver a renderizar
                     renderTable(arrayProducts);
                 } else {
-                    // CREAR: Crear un nuevo objeto y añadirlo al array
+                    // CREAR: Crear un nuevo objeto y agregarlo al array
                     const newProd = new Product(data.id, name, description, category, price, 1);
                     arrayProducts.push(newProd);
                     renderTable(arrayProducts);
