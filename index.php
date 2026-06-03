@@ -1,9 +1,4 @@
 <?php
-// Iniciar sesion para carrito y gestion de usuarios
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 // Autocargador dinamico de clases (Modelo-Vista-Controlador)
 spl_autoload_register(function ($class_name) {
     $dirs = [
@@ -21,6 +16,10 @@ spl_autoload_register(function ($class_name) {
     }
 });
 
+// Iniciar sesion para carrito y gestion de usuarios
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (isset($_GET['controller'])) {
     $nombre_controller = $_GET['controller'] . 'Controller';
