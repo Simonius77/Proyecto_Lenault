@@ -272,6 +272,7 @@ function saveProduct() {
             }
         })
         .catch(error => console.error('Error:', error));
+}
     //  GESTIÓN DE USUARIOS 
     // Clase que representa una entidad usuario
     class User {
@@ -340,6 +341,17 @@ function saveProduct() {
                 }
             })
             .catch(err => console.error(err));
+    }
+
+    // Open the modal for creating a new user
+    function openCreateUserModal() {
+        document.getElementById('userModalTitle').innerText = 'Nuevo Usuario';
+        document.getElementById('userId').value = '';
+        document.getElementById('userName').value = '';
+        document.getElementById('userEmail').value = '';
+        document.getElementById('userRole').value = 'cliente';
+        const modal = new bootstrap.Modal(document.getElementById('userModal'));
+        modal.show();
     }
 
     // Open the edit modal pre‑filled with the selected user's data
@@ -519,5 +531,3 @@ function saveProduct() {
         fetchUsers();
         fetchOrders();
     });
-
-}

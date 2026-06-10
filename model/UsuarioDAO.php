@@ -123,6 +123,28 @@ class UsuarioDAO {
         $con->close();
         return $result;
     }
+
+    // Actualizar usuario (Admin CRUD)
+    public static function updateUsuario($id_usuario, $nombre, $email, $rol) {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("UPDATE usuario SET nombre = ?, email = ?, rol = ? WHERE id_usuario = ?");
+        $stmt->bind_param('sssi', $nombre, $email, $rol, $id_usuario);
+        $result = $stmt->execute();
+        $stmt->close();
+        $con->close();
+        return $result;
+    }
+
+    // Eliminar usuario (Admin CRUD)
+    public static function deleteUsuario($id_usuario) {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("DELETE FROM usuario WHERE id_usuario = ?");
+        $stmt->bind_param('i', $id_usuario);
+        $result = $stmt->execute();
+        $stmt->close();
+        $con->close();
+        return $result;
+    }
 }
 
 

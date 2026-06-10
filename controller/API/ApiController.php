@@ -2,6 +2,7 @@
 include_once 'model/ProductoDAO.php';
 include_once 'model/PedidoDAO.php';
 include_once 'model/LogDAO.php';
+include_once 'model/UsuarioDAO.php';
 
 class ApiController
 {
@@ -102,15 +103,16 @@ class ApiController
         header('Content-Type: application/json');
         $input = json_decode(file_get_contents('php://input'), true);
 
-        if (!$input || !isset($input['id_pedido'])) {
+        $id_pedido = isset($input['id']) ? (int)$input['id'] : (isset($input['id_pedido']) ? (int)$input['id_pedido'] : null);
+
+        if (!$input || !$id_pedido) {
             echo json_encode(['success' => false, 'message' => 'Datos de pedido inválidos']);
             return;
         }
 
-        $id_pedido = (int)$input['id_pedido'];
         $local = isset($input['local']) ? (int)$input['local'] : 0;
         $recoger = isset($input['recoger']) ? (int)$input['recoger'] : 0;
-        $importe_total = isset($input['importe_total']) ? (float)$input['importe_total'] : 0.0;
+        $importe_total = isset($input['total']) ? (float)$input['total'] : (isset($input['importe_total']) ? (float)$input['importe_total'] : 0.0);
 
         $admin = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Admin';
 
@@ -153,6 +155,93 @@ class ApiController
         $logs = LogDAO::getLogs();
         header('Content-Type: application/json');
         echo json_encode($logs);
+    }
+
+    // Obtener todos los usuarios en formato JSON (Admin CRUD)
+    public function users()
+    {
+        $usuarios = UsuarioDAO::getUsuarios();
+        $res = [];
+        foreach ($usuarios as $u) {
+            $res[] = [
+                'id_usuario' => $u->getId_usuario(),
+                'nombre' => $u->getNombre(),
+                'email' => $u->getEmail(),
+                'rol' => $u->getRol()
+            ];
+        }
+        header('Content-Type: application/json');
+        echo json_encode($res);
+    }
+
+    // Guardar / Actualizar usuario (Admin CRUD)
+    public function save_user()
+    {
+        header('Content-Type: application/json');
+        $input = json_decode(file_get_contents('php://input'), true);
+
+        if (!$input) {
+            echo json_encode(['success' => false, 'message' => 'JSON inválido']);
+            return;
+        }
+
+        $id = isset($input['id']) && $input['id'] !== '' ? (int)$input['id'] : null;
+        $nombre = isset($input['nombre']) ? trim($input['nombre']) : '';
+        $email = isset($input['email']) ? trim($input['email']) : '';
+        $rol = isset($input['rol']) ? trim($input['rol']) : 'cliente';
+
+        if (empty($nombre) || empty($email)) {
+            echo json_encode(['success' => false, 'message' => 'Nombre y email son obligatorios']);
+            return;
+        }
+
+        $admin = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Admin';
+
+        if ($id) {
+            // Actualizar usuario existente
+            $result = UsuarioDAO::updateUsuario($id, $nombre, $email, $rol);
+            if ($result) {
+                LogDAO::insertLog($admin, "Modificó el usuario #$id ($nombre)");
+                echo json_encode(['success' => true, 'message' => 'Usuario actualizado correctamente']);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Error al actualizar el usuario']);
+            }
+        } else {
+            // Crear usuario nuevo (con contraseña por defecto '123456')
+            $result = UsuarioDAO::insertUsuario($nombre, $email, '123456', '', '', $rol);
+            if ($result) {
+                // Obtener el ID generado buscando por email
+                $uObj = UsuarioDAO::findByEmail($email);
+                $newId = $uObj ? $uObj['id_usuario'] : null;
+                LogDAO::insertLog($admin, "Creó el usuario #$newId ($nombre)");
+                echo json_encode(['success' => true, 'message' => 'Usuario creado correctamente', 'id' => $newId]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Error al crear el usuario']);
+            }
+        }
+    }
+
+    // Eliminar usuario (Admin CRUD)
+    public function delete_user()
+    {
+        header('Content-Type: application/json');
+        $input = json_decode(file_get_contents('php://input'), true);
+
+        if (!isset($input['id'])) {
+            echo json_encode(['success' => false, 'message' => 'ID de usuario faltante']);
+            return;
+        }
+
+        $id = (int)$input['id'];
+        $admin = isset($_SESSION['user_name']) ? $_SESSION['user_name'] : 'Admin';
+
+        $result = UsuarioDAO::deleteUsuario($id);
+        if ($result) {
+            LogDAO::insertLog($admin, "Eliminó el usuario #$id");
+            echo json_encode(['success' => true, 'message' => 'Usuario eliminado correctamente']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Error al eliminar el usuario']);
+        }
     }
 }
 ?>
