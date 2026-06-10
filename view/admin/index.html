@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header class="header">
+        <h1>Panel de Administración</h1>
+    </header>
+    <main class="container">
+        <section id="offers-section">
+            <h2>Gestión de Ofertas</h2>
+            <form id="offer-form">
+                <label>
+                    Producto ID:
+                    <input type="number" id="offer-product-id" required />
+                </label>
+                <label>
+                    % Descuento:
+                    <input type="number" id="offer-discount" min="0" max="100" required />
+                </label>
+                <label>
+                    Inicio:
+                    <input type="date" id="offer-start" required />
+                </label>
+                <label>
+                    Fin:
+                    <input type="date" id="offer-end" required />
+                </label>
+                <button type="submit">Crear/Actualizar Oferta</button>
+            </form>
+            <ul id="offers-list"></ul>
+        </section>
+        <section id="logs-section">
+            <h2>Historial de Logs</h2>
+            <button id="refresh-logs">Refrescar</button>
+            <ul id="logs-list"></ul>
+        </section>
+    </main>
+    <script src="app.js" type="module"></script>
+</body>
+</html>

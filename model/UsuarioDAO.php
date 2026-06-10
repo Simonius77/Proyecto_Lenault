@@ -112,6 +112,30 @@ class UsuarioDAO {
         
         return $result;
     }
+
+    // Asignar rol a un usuario por email (útil para admin)
+    public static function setUserRoleByEmail($email, $role) {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("UPDATE usuario SET rol = ? WHERE email = ?");
+        $stmt->bind_param('ss', $role, $email);
+        $result = $stmt->execute();
+        $stmt->close();
+        $con->close();
+        return $result;
+    }
 }
 
+
+?>
+<?php
+// Script rápido para convertir a admin a admin@admin.com
+require_once __DIR__ . '/../../model/UsuarioDAO.php';
+
+$email = 'admin@admin.com';
+$role = 'admin';
+if (UsuarioDAO::setUserRoleByEmail($email, $role)) {
+    echo "Usuario $email ahora es admin.";
+} else {
+    echo "Error al actualizar el rol de $email.";
+}
 ?>

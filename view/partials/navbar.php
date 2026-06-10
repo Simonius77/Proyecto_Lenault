@@ -53,14 +53,20 @@
                             <i class="fas fa-user-circle me-1"></i> Hola, <?= htmlspecialchars($_SESSION['user_name']); ?>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2" aria-labelledby="navbarDropdown">
-                            <?php if (strtolower($_SESSION['user_role']) === 'admin'): ?>
-                                <li>
-                                    <a class="dropdown-item fw-bold text-primary" href="?controller=Admind&action=Admind">
-                                        <i class="fas fa-cog me-2"></i>Panel Administrador
-                                    </a>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                            <?php endif; ?>
+                            <?php 
+// Si el usuario tiene rol "admin", mostramos la opción del panel admin
+// Esta condición verifica la variable de sesión $_SESSION['user_role']
+// y la compara en minúsculas con la cadena 'admin'.
+// Si coincide, se agrega al dropdown el enlace al panel de administración.
+?>
+<?php if (strtolower($_SESSION['user_role']) === 'admin'): ?>
+    <li>
+        <a class="dropdown-item fw-bold text-primary" href="?controller=Admind&action=Admind">
+            <i class="fas fa-cog me-2"></i>Panel Administrador
+        </a>
+    </li>
+    <li><hr class="dropdown-divider"></li>
+<?php endif; ?>
                             <li>
                                 <a class="dropdown-item text-danger" href="?controller=Usuario&action=Logout">
                                     <i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión
