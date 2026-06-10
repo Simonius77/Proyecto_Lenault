@@ -7,7 +7,8 @@ Url para cargar la vista de quiene somos
 http://localhost/Proyecto_Lenault/?controller=Home&action=aboutus
 Url para cargar la vista de login
 http://localhost/Proyecto_Lenault/?controller=Home&action=login
-
+Url para cargar la home
+http://localhost/Proyecto_Lenault/?controller=Home&action=Home
 SERVIDOR
 AWARDSPACE.NET
 el usuario es el correo del instituto 

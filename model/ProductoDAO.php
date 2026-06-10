@@ -40,7 +40,7 @@ class ProductoDAO
     public static function insert($producto)
     {
         $con = DataBase::connect();
-        // Assuming id_categoria, nombre, precio, descripcion, imagen
+        // Asumiendo id_categoria, nombre, precio, descripcion, imagen
         $stmt = $con->prepare("INSERT INTO PRODUCTO (id_categoria, nombre, precio, descripcion, imagen) VALUES (?, ?, ?, ?, ?)");
 
         $cat = $producto->getId_categoria();
@@ -55,7 +55,7 @@ class ProductoDAO
         $insertId = $con->insert_id;
         $con->close();
 
-        return $insertId; // Return ID or false
+        return $insertId; // Devuelve ID o false
     }
 
     public static function update($producto)

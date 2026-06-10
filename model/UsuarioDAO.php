@@ -1,15 +1,14 @@
-
 <?php 
 
 include_once 'model/Usuario.php';
 include_once 'database/database.php';
 
-class UsuarioDAO {  // Cambiado de ProductoDAO a UsuarioDAO
+class UsuarioDAO {
     
     // Obtener usuario por ID
     public static function getUsuarioByID($id_usuario){
         $con = DataBase::connect();
-        $stmt = $con->prepare("SELECT * FROM USUARIO WHERE ID_USUARIO = ?");
+        $stmt = $con->prepare("SELECT * FROM usuario WHERE id_usuario = ?");
         $stmt->bind_param('i', $id_usuario);
         $stmt->execute();
         $results = $stmt->get_result();
@@ -23,7 +22,7 @@ class UsuarioDAO {  // Cambiado de ProductoDAO a UsuarioDAO
     // Obtener todos los usuarios
     public static function getUsuarios(){
         $con = DataBase::connect();
-        $stmt = $con->prepare("SELECT * FROM USUARIO");
+        $stmt = $con->prepare("SELECT * FROM usuario");
         $stmt->execute();
         $results = $stmt->get_result();
 
@@ -40,8 +39,9 @@ class UsuarioDAO {  // Cambiado de ProductoDAO a UsuarioDAO
     // Autenticar usuario (LOGIN)
     public static function login($username, $password) {
         $con = DataBase::connect();
-        $stmt = $con->prepare("SELECT ID_USUARIO, NOMBRE_USUARIO, EMAIL, PASSWORD FROM USUARIO WHERE NOMBRE_USUARIO = ? LIMIT 1");
-        $stmt->bind_param('s', $username);
+        // Buscamos tanto por nombre como por email para mayor flexibilidad y evitar fallos
+        $stmt = $con->prepare("SELECT id_usuario, nombre, email, password, rol, telf, direccion FROM usuario WHERE nombre = ? OR email = ? LIMIT 1");
+        $stmt->bind_param('ss', $username, $username);
         $stmt->execute();
         $results = $stmt->get_result();
 
@@ -49,11 +49,14 @@ class UsuarioDAO {  // Cambiado de ProductoDAO a UsuarioDAO
             $row = $results->fetch_assoc();
             
             // Verificar password
-            if (password_verify($password, $row['PASSWORD'])) {
+            if (password_verify($password, $row['password'])) {
                 $usuario = new Usuario();
-                $usuario->setId_usuario($row['ID_USUARIO']);
-                $usuario->setNombre($row['NOMBRE_USUARIO']);
-                $usuario->setEmail($row['EMAIL']);
+                $usuario->setId_usuario($row['id_usuario']);
+                $usuario->setNombre($row['nombre']);
+                $usuario->setEmail($row['email']);
+                $usuario->setRol($row['rol']);
+                $usuario->setTelf($row['telf']);
+                $usuario->setDireccion($row['direccion']);
                 
                 $con->close();
                 return $usuario;
@@ -67,7 +70,7 @@ class UsuarioDAO {  // Cambiado de ProductoDAO a UsuarioDAO
     // Buscar usuario por email
     public static function findByEmail($email) {
         $con = DataBase::connect();
-        $stmt = $con->prepare("SELECT ID_USUARIO, NOMBRE_USUARIO, EMAIL FROM USUARIO WHERE EMAIL = ? LIMIT 1");
+        $stmt = $con->prepare("SELECT id_usuario, nombre, email, rol FROM usuario WHERE email = ? LIMIT 1");
         $stmt->bind_param('s', $email);
         $stmt->execute();
         $results = $stmt->get_result();
@@ -82,12 +85,12 @@ class UsuarioDAO {  // Cambiado de ProductoDAO a UsuarioDAO
         return false;
     }
 
-    // Actualizar contraseña
+    // Actualizar contrasena
     public static function updatePassword($user_id, $new_password) {
         $con = DataBase::connect();
         $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
         
-        $stmt = $con->prepare("UPDATE USUARIO SET PASSWORD = ? WHERE ID_USUARIO = ?");
+        $stmt = $con->prepare("UPDATE usuario SET password = ? WHERE id_usuario = ?");
         $stmt->bind_param('si', $hashed_password, $user_id);
         
         $result = $stmt->execute();
@@ -97,18 +100,53 @@ class UsuarioDAO {  // Cambiado de ProductoDAO a UsuarioDAO
     }
 
     // Insertar nuevo usuario
-    public static function insertUsuario($username, $email, $password) {
+    public static function insertUsuario($username, $email, $password, $telf = '', $direccion = '', $rol = 'cliente') {
         $con = DataBase::connect();
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         
-        $stmt = $con->prepare("INSERT INTO USUARIO (NOMBRE_USUARIO, EMAIL, PASSWORD) VALUES (?, ?, ?)");
-        $stmt->bind_param('sss', $username, $email, $hashed_password);
+        $stmt = $con->prepare("INSERT INTO usuario (nombre, email, password, telf, direccion, rol) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param('ssssss', $username, $email, $hashed_password, $telf, $direccion, $rol);
         
         $result = $stmt->execute();
         $con->close();
         
         return $result;
     }
+
+    // Asignar rol a un usuario por email (útil para admin)
+    public static function setUserRoleByEmail($email, $role) {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("UPDATE usuario SET rol = ? WHERE email = ?");
+        $stmt->bind_param('ss', $role, $email);
+        $result = $stmt->execute();
+        $stmt->close();
+        $con->close();
+        return $result;
+    }
+
+    // Actualizar usuario (Admin CRUD)
+    public static function updateUsuario($id_usuario, $nombre, $email, $rol) {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("UPDATE usuario SET nombre = ?, email = ?, rol = ? WHERE id_usuario = ?");
+        $stmt->bind_param('sssi', $nombre, $email, $rol, $id_usuario);
+        $result = $stmt->execute();
+        $stmt->close();
+        $con->close();
+        return $result;
+    }
+
+    // Eliminar usuario (Admin CRUD)
+    public static function deleteUsuario($id_usuario) {
+        $con = DataBase::connect();
+        $stmt = $con->prepare("DELETE FROM usuario WHERE id_usuario = ?");
+        $stmt->bind_param('i', $id_usuario);
+        $result = $stmt->execute();
+        $stmt->close();
+        $con->close();
+        return $result;
+    }
 }
 
+
 ?>
+

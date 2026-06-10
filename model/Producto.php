@@ -16,10 +16,10 @@ class Producto implements JsonSerializable
                         'id' => $this->id_producto,
                         'name' => $this->nombre,
                         'description' => $this->descripcion,
-                        'category' => $this->id_categoria, // Keeping int, JS might need mapping or display as is
+                        'category' => $this->id_categoria, // Mantener entero, JS podria necesitar mapeo o mostrar tal cual
                         'price' => $this->precio,
-                        'available' => 1, // Hardcoded for now as DB doesn't seem to have it
-                        'image' => $this->imagen
+                        'available' => 1, // Definido fijo por ahora ya que la base de datos no parece tenerlo
+                        'image' => $this->getImagen()
                 ];
         }
 
@@ -75,7 +75,13 @@ class Producto implements JsonSerializable
 
         public function getImagen()
         {
-                return $this->imagen;
+                $img = trim($this->imagen, '"\'');
+                $img = ltrim($img, '\\/');
+                if (stripos($img, 'Imagenes') === 0) {
+                    $img = substr($img, strlen('Imagenes'));
+                    $img = ltrim($img, '\\/');
+                }
+                return $img;
         }
         public function setImagen($imagen)
         {

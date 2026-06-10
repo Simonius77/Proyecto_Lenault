@@ -11,7 +11,7 @@
 <body>
   <div class="container-fluid">
     <div class="row">
-      <!-- Sidebar -->
+      <!-- Barra lateral -->
       <nav class="col-12 col-md-3 col-lg-2 bg-light min-vh-100">
         <h4 class="p-3">Admin Restaurante</h4>
         <ul class="nav nav-pills flex-column" id="admin-menu" role="tablist">
