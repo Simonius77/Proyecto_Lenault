@@ -272,4 +272,252 @@ function saveProduct() {
             }
         })
         .catch(error => console.error('Error:', error));
+    //  GESTIÓN DE USUARIOS 
+    // Clase que representa una entidad usuario
+    class User {
+        constructor(id, nombre, email, rol) {
+            this.id = id;
+            this.nombre = nombre;
+            this.email = email;
+            this.rol = rol;
+        }
+        getHtmlRow() {
+            return `
+            <tr id="user-row-${this.id}">
+                <td>${this.id}</td>
+                <td><strong>${this.nombre}</strong></td>
+                <td>${this.email}</td>
+                <td>${this.rol}</td>
+                <td>
+                    <button class="btn btn-sm btn-outline-primary me-2" onclick="openEditUserModal(${this.id})">Edit</button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteUser(${this.id})">Delete</button>
+                </td>
+            </tr>
+        `;
+        }
+    }
+
+    const arrayUsers = [];
+
+    // Obtiene la lista de usuarios desde la API y rellena la tabla
+    function fetchUsers() {
+        fetch('index.php?controller=Api&action=users')
+            .then(r => r.json())
+            .then(data => {
+                data.forEach(item => {
+                    const u = new User(item.id_usuario, item.nombre, item.email, item.rol);
+                    arrayUsers.push(u);
+                });
+                renderUserTable(arrayUsers);
+            })
+            .catch(err => console.error('Error loading users:', err));
+    }
+
+    // Renderiza el array de usuarios en el cuerpo de la tabla HTML
+    function renderUserTable(users) {
+        const tbody = document.getElementById('usersTableBody');
+        tbody.innerHTML = '';
+        users.forEach(u => tbody.innerHTML += u.getHtmlRow());
+    }
+
+    // Elimina un usuario después de confirmar y actualiza la interfaz
+    function deleteUser(id) {
+        if (!confirm('¿Seguro que deseas eliminar este usuario?')) return;
+        fetch('index.php?controller=Api&action=delete_user', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id })
+        })
+            .then(r => r.json())
+            .then(res => {
+                if (res.success) {
+                    const row = document.getElementById(`user-row-${id}`);
+                    if (row) row.remove();
+                    const idx = arrayUsers.findIndex(u => u.id === id);
+                    if (idx > -1) arrayUsers.splice(idx, 1);
+                } else {
+                    alert('Error: ' + res.message);
+                }
+            })
+            .catch(err => console.error(err));
+    }
+
+    // Open the edit modal pre‑filled with the selected user's data
+    function openEditUserModal(id) {
+        const user = arrayUsers.find(u => u.id === id);
+        if (!user) return;
+        document.getElementById('userModalTitle').innerText = 'Editar Usuario';
+        document.getElementById('userId').value = user.id;
+        document.getElementById('userName').value = user.nombre;
+        document.getElementById('userEmail').value = user.email;
+        document.getElementById('userRole').value = user.rol;
+        const modal = new bootstrap.Modal(document.getElementById('userModal'));
+        modal.show();
+    }
+
+    // Send the new/edited user data to the server and refresh the table
+    function saveUser() {
+        const id = document.getElementById('userId').value;
+        const nombre = document.getElementById('userName').value;
+        const email = document.getElementById('userEmail').value;
+        const rol = document.getElementById('userRole').value;
+        if (!nombre || !email) { alert('Complete all fields'); return; }
+        const payload = { id, nombre, email, rol };
+        fetch('index.php?controller=Api&action=save_user', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        })
+            .then(r => r.json())
+            .then(res => {
+                if (res.success) {
+                    const modalEl = document.getElementById('userModal');
+                    const modal = bootstrap.Modal.getInstance(modalEl);
+                    modal.hide();
+                    // Update local array
+                    if (id) {
+                        const u = arrayUsers.find(u => u.id == id);
+                        u.nombre = nombre; u.email = email; u.rol = rol;
+                    } else {
+                        const newUser = new User(res.id, nombre, email, rol);
+                        arrayUsers.push(newUser);
+                    }
+                    renderUserTable(arrayUsers);
+                } else {
+                    alert('Error: ' + res.message);
+                }
+            })
+            .catch(err => console.error(err));
+    }
+
+    // GESTION DE PEDIDOS 
+    // Clase que representa una entidad pedido
+    class Order {
+        constructor(id, usuario, total, fecha, local, recoger) {
+            this.id = id;
+            this.usuario = usuario; // nombre del usuario
+            this.total = parseFloat(total);
+            this.fecha = fecha;
+            this.local = local;
+            this.recoger = recoger;
+        }
+        getHtmlRow() {
+            const tipo = this.local ? 'Local' : (this.recoger ? 'Para Llevar' : '');
+            return `
+            <tr id="order-row-${this.id}">
+                <td>${this.id}</td>
+                <td>${this.usuario}</td>
+                <td>${this.total.toFixed(2)} €</td>
+                <td>${this.fecha}</td>
+                <td>${tipo}</td>
+                <td>
+                    <button class="btn btn-sm btn-outline-primary me-2" onclick="openEditOrderModal(${this.id})">Edit</button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deleteOrder(${this.id})">Delete</button>
+                </td>
+            </tr>
+        `;
+        }
+    }
+
+    const arrayOrders = [];
+
+    // Load orders from the API and render them
+    function fetchOrders() {
+        fetch('index.php?controller=Api&action=orders')
+            .then(r => r.json())
+            .then(data => {
+                data.forEach(item => {
+                    const o = new Order(item.id_pedido, item.nombre_usuario, item.importe_total, item.fecha, item.local, item.recoger);
+                    arrayOrders.push(o);
+                });
+                renderOrderTable(arrayOrders);
+            })
+            .catch(err => console.error('Error loading orders:', err));
+    }
+
+    // Populate the orders table with data
+    function renderOrderTable(orders) {
+        const tbody = document.getElementById('ordersTableBody');
+        tbody.innerHTML = '';
+        orders.forEach(o => tbody.innerHTML += o.getHtmlRow());
+    }
+
+    // Remove an order after user confirmation
+    function deleteOrder(id) {
+        if (!confirm('¿Eliminar este pedido?')) return;
+        fetch('index.php?controller=Api&action=delete_order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id })
+        })
+            .then(r => r.json())
+            .then(res => {
+                if (res.success) {
+                    const row = document.getElementById(`order-row-${id}`);
+                    if (row) row.remove();
+                    const idx = arrayOrders.findIndex(o => o.id === id);
+                    if (idx > -1) arrayOrders.splice(idx, 1);
+                } else {
+                    alert('Error: ' + res.message);
+                }
+            })
+            .catch(err => console.error(err));
+    }
+
+    // Open modal to edit an existing order
+    function openEditOrderModal(id) {
+        const order = arrayOrders.find(o => o.id === id);
+        if (!order) return;
+        document.getElementById('orderModalTitle').innerText = 'Editar Pedido';
+        document.getElementById('orderId').value = order.id;
+        document.getElementById('orderUser').value = order.usuario;
+        document.getElementById('orderTotal').value = order.total;
+        document.getElementById('orderDate').value = order.fecha;
+        document.getElementById('orderTipo').value = order.local ? 'local' : (order.recoger ? 'recoger' : '');
+        const modal = new bootstrap.Modal(document.getElementById('orderModal'));
+        modal.show();
+    }
+
+    // Save new or edited order data to the server
+    function saveOrder() {
+        const id = document.getElementById('orderId').value;
+        const usuario = document.getElementById('orderUser').value;
+        const total = parseFloat(document.getElementById('orderTotal').value);
+        const fecha = document.getElementById('orderDate').value;
+        const tipo = document.getElementById('orderTipo').value;
+        const local = tipo === 'local' ? 1 : 0;
+        const recoger = tipo === 'recoger' ? 1 : 0;
+        const payload = { id, usuario, total, fecha, local, recoger };
+        fetch('index.php?controller=Api&action=save_order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        })
+            .then(r => r.json())
+            .then(res => {
+                if (res.success) {
+                    const modalEl = document.getElementById('orderModal');
+                    const modal = bootstrap.Modal.getInstance(modalEl);
+                    modal.hide();
+                    if (id) {
+                        const o = arrayOrders.find(o => o.id == id);
+                        o.usuario = usuario; o.total = total; o.fecha = fecha; o.local = local; o.recoger = recoger;
+                    } else {
+                        const newOrder = new Order(res.id, usuario, total, fecha, local, recoger);
+                        arrayOrders.push(newOrder);
+                    }
+                    renderOrderTable(arrayOrders);
+                } else {
+                    alert('Error: ' + res.message);
+                }
+            })
+            .catch(err => console.error(err));
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchUsers();
+        fetchOrders();
+    });
+
 }

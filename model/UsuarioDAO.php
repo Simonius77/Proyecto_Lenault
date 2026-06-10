@@ -127,15 +127,4 @@ class UsuarioDAO {
 
 
 ?>
-<?php
-// Script rápido para convertir a admin a admin@admin.com
-require_once __DIR__ . '/../../model/UsuarioDAO.php';
 
-$email = 'admin@admin.com';
-$role = 'admin';
-if (UsuarioDAO::setUserRoleByEmail($email, $role)) {
-    echo "Usuario $email ahora es admin.";
-} else {
-    echo "Error al actualizar el rol de $email.";
-}
-?>
